@@ -140,7 +140,7 @@ public class Exchange {
 			//Apply the trade payment to the account balance of the buyer (they spent money)
 			accounts.getTraderAccount(t.getBuyer()).withdrawMoney((int) (t.getPrice() * t.getQuantity()));
 			//Add the bought stocks to the position of the buyer
-			accounts.getTraderAccount(t.getBuyer()).updatePosition(t.getSecurity().getTicker(), t.getQuantity());
+			accounts.getTraderAccount(t.getBuyer()).addToPosition(t.getSecurity().getTicker(), t.getQuantity());
 			
 			//Update balances for Seller
 			
@@ -151,9 +151,9 @@ public class Exchange {
 			//Apply the trade payment to the account balance of the seller (they earned money)
 			accounts.getTraderAccount(t.getSeller()).addMoney((int) (t.getPrice() * t.getQuantity()));
 			//Deduct the sold stocks from the position of the seller
-			accounts.getTraderAccount(t.getSeller()).updatePosition(t.getSecurity().getTicker(), -t.getQuantity());
+			accounts.getTraderAccount(t.getSeller()).deductFromPosition(t.getSecurity().getTicker(), t.getQuantity());
 			
-			this.totalFees += buyerFee + sellerFee;
+			this.totalFees += t.getBuyerFee() + t.getSellerFee(); 
 		}
 	}
 	
