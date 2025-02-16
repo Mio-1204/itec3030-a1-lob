@@ -153,7 +153,7 @@ public class Exchange {
 			//Deduct the sold stocks from the position of the seller
 			accounts.getTraderAccount(t.getSeller()).deductFromPosition(t.getSecurity().getTicker(), t.getQuantity());
 			
-			this.totalFees += t.getBuyerFee() + t.getSellerFee(); 
+			this.totalFees += buyerFee + sellerFee; 
 		}
 	}
 	
